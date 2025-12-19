@@ -36,7 +36,7 @@ forge test --match-test test_Flush_SingleToken -vvv
 Copy an example environment file and fill in required values:
 
 ```bash
-cp script/config/bartio.env.example .env
+cp script/config/testnet.env.example .env
 # or for mainnet:
 # cp script/config/mainnet.env.example .env
 
