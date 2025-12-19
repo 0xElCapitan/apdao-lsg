@@ -29,9 +29,17 @@ forge test --match-test test_Flush_SingleToken -vvv
 - **Bribe**: Reward distribution (Sprint 3)
 - **Strategies**: LBT Boost, Direct Distribution, Growth Treasury, PoL Reinvestment (Sprint 4)
 
-## Deployment
+## Deployment (Foundry)
 
-See `script/Deploy.s.sol` for deployment scripts.
+### 1. Configure environment
+
+Copy an example environment file and fill in required values:
+
+```bash
+cp script/config/bartio.env.example .env
+# or for mainnet:
+# cp script/config/mainnet.env.example .env
+
 
 ## Testing
 
