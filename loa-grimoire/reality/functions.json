@@ -1,0 +1,96 @@
+{
+  "extraction_timestamp": "2025-12-22T17:10:00Z",
+  "total_public_functions": 47,
+  "total_external_functions": 38,
+  "contracts": {
+    "LSGVoter": {
+      "public": [
+        {"name": "getVotingPower", "visibility": "public", "mutability": "view", "params": "address account", "returns": "uint256", "line": 223},
+        {"name": "distribute", "visibility": "public", "mutability": "nonReentrant", "params": "address _strategy, address _token", "returns": "void", "line": 391},
+        {"name": "currentEpoch", "visibility": "public", "mutability": "view", "params": "", "returns": "uint256", "line": 534},
+        {"name": "epochStartTime", "visibility": "public", "mutability": "pure", "params": "uint256 epoch", "returns": "uint256", "line": 541},
+        {"name": "timeUntilNextEpoch", "visibility": "public", "mutability": "view", "params": "", "returns": "uint256", "line": 547}
+      ],
+      "external": [
+        {"name": "vote", "visibility": "external", "mutability": "nonReentrant whenNotPaused onlyNewEpoch", "params": "address[] _strategies, uint256[] _weights", "returns": "void", "line": 239, "access": "NFT holders"},
+        {"name": "reset", "visibility": "external", "mutability": "nonReentrant onlyNewEpoch", "params": "", "returns": "void", "line": 291, "access": "NFT holders"},
+        {"name": "delegate", "visibility": "external", "mutability": "nonReentrant", "params": "address _delegate", "returns": "void", "line": 327, "access": "NFT holders"},
+        {"name": "undelegate", "visibility": "external", "mutability": "nonReentrant", "params": "", "returns": "void", "line": 348, "access": "NFT holders"},
+        {"name": "notifyRevenue", "visibility": "external", "mutability": "onlyRevenueRouter nonReentrant", "params": "address _token, uint256 _amount", "returns": "void", "line": 366, "access": "Revenue Router only"},
+        {"name": "distributeAllTokens", "visibility": "external", "mutability": "", "params": "address _strategy", "returns": "void", "line": 404, "access": "Anyone"},
+        {"name": "distributeToAllStrategies", "visibility": "external", "mutability": "", "params": "address _token", "returns": "void", "line": 412, "access": "Anyone"},
+        {"name": "setRevenueRouter", "visibility": "external", "mutability": "onlyOwner", "params": "address _router", "returns": "void", "line": 454, "access": "Owner"},
+        {"name": "addStrategy", "visibility": "external", "mutability": "onlyOwner", "params": "address _strategy, address _bribe", "returns": "address", "line": 464, "access": "Owner"},
+        {"name": "killStrategy", "visibility": "external", "mutability": "onlyOwner", "params": "address _strategy", "returns": "void", "line": 487, "access": "Owner"},
+        {"name": "emergencyPause", "visibility": "external", "mutability": "onlyEmergency", "params": "", "returns": "void", "line": 510, "access": "Owner or Emergency Multisig"},
+        {"name": "unpause", "visibility": "external", "mutability": "onlyOwner", "params": "", "returns": "void", "line": 516, "access": "Owner"},
+        {"name": "setEmergencyMultisig", "visibility": "external", "mutability": "onlyOwner", "params": "address _multisig", "returns": "void", "line": 522, "access": "Owner"},
+        {"name": "getStrategies", "visibility": "external", "mutability": "view", "params": "", "returns": "address[]", "line": 554, "access": "Anyone"},
+        {"name": "getAccountVotes", "visibility": "external", "mutability": "view", "params": "address account", "returns": "address[]", "line": 560, "access": "Anyone"},
+        {"name": "getRevenueTokens", "visibility": "external", "mutability": "view", "params": "", "returns": "address[]", "line": 567, "access": "Anyone"},
+        {"name": "pendingRevenue", "visibility": "external", "mutability": "view", "params": "address _strategy, address _token", "returns": "uint256", "line": 575, "access": "Anyone"}
+      ]
+    },
+    "Bribe": {
+      "public": [
+        {"name": "lastTimeRewardApplicable", "visibility": "public", "mutability": "view", "params": "address token", "returns": "uint256", "line": 239},
+        {"name": "rewardPerToken", "visibility": "public", "mutability": "view", "params": "address token", "returns": "uint256", "line": 246},
+        {"name": "earned", "visibility": "public", "mutability": "view", "params": "address account, address token", "returns": "uint256", "line": 259}
+      ],
+      "external": [
+        {"name": "_deposit", "visibility": "external", "mutability": "onlyVoter nonReentrant updateReward", "params": "uint256 amount, address account", "returns": "void", "line": 145, "access": "Voter only"},
+        {"name": "_withdraw", "visibility": "external", "mutability": "onlyVoter nonReentrant updateReward", "params": "uint256 amount, address account", "returns": "void", "line": 156, "access": "Voter only"},
+        {"name": "notifyRewardAmount", "visibility": "external", "mutability": "nonReentrant updateReward", "params": "address token, uint256 amount", "returns": "void", "line": 171, "access": "Anyone"},
+        {"name": "getReward", "visibility": "external", "mutability": "nonReentrant updateReward", "params": "", "returns": "uint256[]", "line": 205, "access": "Anyone"},
+        {"name": "getRewardForToken", "visibility": "external", "mutability": "nonReentrant updateReward", "params": "address token", "returns": "uint256", "line": 223, "access": "Anyone"},
+        {"name": "getRewardTokens", "visibility": "external", "mutability": "view", "params": "", "returns": "address[]", "line": 267, "access": "Anyone"},
+        {"name": "rewardTokensLength", "visibility": "external", "mutability": "view", "params": "", "returns": "uint256", "line": 273, "access": "Anyone"},
+        {"name": "left", "visibility": "external", "mutability": "view", "params": "address token", "returns": "uint256", "line": 280, "access": "Anyone"}
+      ]
+    },
+    "MultiTokenRouter": {
+      "external": [
+        {"name": "setWhitelistedToken", "visibility": "external", "mutability": "onlyOwner", "params": "address _token, bool _status", "returns": "void", "line": 83, "access": "Owner"},
+        {"name": "setVoter", "visibility": "external", "mutability": "onlyOwner", "params": "address _voter", "returns": "void", "line": 97, "access": "Owner"},
+        {"name": "pause", "visibility": "external", "mutability": "onlyOwner", "params": "", "returns": "void", "line": 104, "access": "Owner"},
+        {"name": "unpause", "visibility": "external", "mutability": "onlyOwner", "params": "", "returns": "void", "line": 109, "access": "Owner"},
+        {"name": "flush", "visibility": "external", "mutability": "whenNotPaused", "params": "address _token", "returns": "uint256", "line": 120, "access": "Anyone"},
+        {"name": "flushAll", "visibility": "external", "mutability": "whenNotPaused", "params": "", "returns": "void", "line": 133, "access": "Anyone"},
+        {"name": "pendingRevenue", "visibility": "external", "mutability": "view", "params": "address _token", "returns": "uint256", "line": 154, "access": "Anyone"},
+        {"name": "getWhitelistedTokens", "visibility": "external", "mutability": "view", "params": "", "returns": "address[]", "line": 160, "access": "Anyone"}
+      ]
+    },
+    "LBTBoostStrategy": {
+      "external": [
+        {"name": "setSwapPath", "visibility": "external", "mutability": "onlyOwner", "params": "address token, bytes path", "returns": "void", "line": 151, "access": "Owner"},
+        {"name": "removeSwapPath", "visibility": "external", "mutability": "onlyOwner", "params": "address token", "returns": "void", "line": 160, "access": "Owner"},
+        {"name": "setSlippage", "visibility": "external", "mutability": "onlyOwner", "params": "uint256 _slippageBps", "returns": "void", "line": 168, "access": "Owner"},
+        {"name": "execute", "visibility": "external", "mutability": "nonReentrant", "params": "address token", "returns": "uint256", "line": 182, "access": "Anyone"},
+        {"name": "executeAll", "visibility": "external", "mutability": "nonReentrant", "params": "address[] tokens", "returns": "uint256[]", "line": 213, "access": "Anyone"},
+        {"name": "rescueTokens", "visibility": "external", "mutability": "onlyOwner", "params": "address token, address to, uint256 amount", "returns": "void", "line": 255, "access": "Owner"},
+        {"name": "tokenBalance", "visibility": "external", "mutability": "view", "params": "address token", "returns": "uint256", "line": 320, "access": "Anyone"},
+        {"name": "supportsStrategy", "visibility": "external", "mutability": "pure", "params": "", "returns": "bool", "line": 326, "access": "Anyone"},
+        {"name": "getSwapPath", "visibility": "external", "mutability": "view", "params": "address token", "returns": "bytes", "line": 333, "access": "Anyone"}
+      ]
+    },
+    "DirectDistributionStrategy": {
+      "external": [
+        {"name": "execute", "visibility": "external", "mutability": "nonReentrant", "params": "address token", "returns": "uint256", "line": 76, "access": "Anyone"},
+        {"name": "executeAll", "visibility": "external", "mutability": "nonReentrant", "params": "address[] tokens", "returns": "uint256[]", "line": 93, "access": "Anyone"},
+        {"name": "rescueTokens", "visibility": "external", "mutability": "onlyOwner", "params": "address token, address to, uint256 amount", "returns": "void", "line": 116, "access": "Owner"},
+        {"name": "tokenBalance", "visibility": "external", "mutability": "view", "params": "address token", "returns": "uint256", "line": 129, "access": "Anyone"},
+        {"name": "supportsStrategy", "visibility": "external", "mutability": "pure", "params": "", "returns": "bool", "line": 135, "access": "Anyone"}
+      ]
+    },
+    "GrowthTreasuryStrategy": {
+      "external": [
+        {"name": "setGrowthTreasury", "visibility": "external", "mutability": "onlyOwner", "params": "address _newTreasury", "returns": "void", "line": 80, "access": "Owner"},
+        {"name": "execute", "visibility": "external", "mutability": "nonReentrant", "params": "address token", "returns": "uint256", "line": 94, "access": "Anyone"},
+        {"name": "executeAll", "visibility": "external", "mutability": "nonReentrant", "params": "address[] tokens", "returns": "uint256[]", "line": 105, "access": "Anyone"},
+        {"name": "rescueTokens", "visibility": "external", "mutability": "onlyOwner", "params": "address token, address to, uint256 amount", "returns": "void", "line": 122, "access": "Owner"},
+        {"name": "tokenBalance", "visibility": "external", "mutability": "view", "params": "address token", "returns": "uint256", "line": 135, "access": "Anyone"},
+        {"name": "supportsStrategy", "visibility": "external", "mutability": "pure", "params": "", "returns": "bool", "line": 141, "access": "Anyone"}
+      ]
+    }
+  }
+}

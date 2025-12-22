@@ -1,0 +1,97 @@
+{
+  "extraction_timestamp": "2025-12-22T17:10:00Z",
+  "contracts": {
+    "LSGVoter": {
+      "constants": [
+        {"name": "EPOCH_DURATION", "type": "uint256", "value": "7 days", "visibility": "public", "line": 23},
+        {"name": "EPOCH_START", "type": "uint256", "value": "1704067200", "visibility": "public", "line": 26, "note": "Monday, Jan 1, 2024 00:00:00 UTC"},
+        {"name": "MAX_STRATEGIES", "type": "uint256", "value": "20", "visibility": "public", "line": 29}
+      ],
+      "immutables": [
+        {"name": "seatNFT", "type": "address", "visibility": "public", "line": 36, "note": "Voting power source (ERC721)"},
+        {"name": "treasury", "type": "address", "visibility": "public", "line": 39, "note": "Receives revenue when no votes"}
+      ],
+      "state": [
+        {"name": "revenueRouter", "type": "address", "visibility": "public", "line": 47},
+        {"name": "revenueTokens", "type": "address[]", "visibility": "public", "line": 50},
+        {"name": "isRevenueToken", "type": "mapping(address => bool)", "visibility": "public", "line": 53},
+        {"name": "tokenIndex", "type": "mapping(address => uint256)", "visibility": "internal", "line": 57},
+        {"name": "strategy_TokenSupplyIndex", "type": "mapping(address => mapping(address => uint256))", "visibility": "internal", "line": 60},
+        {"name": "strategy_TokenClaimable", "type": "mapping(address => mapping(address => uint256))", "visibility": "public", "line": 63},
+        {"name": "strategies", "type": "address[]", "visibility": "public", "line": 67},
+        {"name": "strategy_IsValid", "type": "mapping(address => bool)", "visibility": "public", "line": 70},
+        {"name": "strategy_IsAlive", "type": "mapping(address => bool)", "visibility": "public", "line": 73},
+        {"name": "strategy_Bribe", "type": "mapping(address => address)", "visibility": "public", "line": 76},
+        {"name": "strategy_Weight", "type": "mapping(address => uint256)", "visibility": "public", "line": 79},
+        {"name": "totalWeight", "type": "uint256", "visibility": "public", "line": 82},
+        {"name": "account_Strategy_Votes", "type": "mapping(address => mapping(address => uint256))", "visibility": "public", "line": 86},
+        {"name": "account_StrategyVotes", "type": "mapping(address => address[])", "visibility": "public", "line": 89},
+        {"name": "account_UsedWeight", "type": "mapping(address => uint256)", "visibility": "public", "line": 92},
+        {"name": "account_LastVoted", "type": "mapping(address => uint256)", "visibility": "public", "line": 95},
+        {"name": "delegation", "type": "mapping(address => address)", "visibility": "public", "line": 99},
+        {"name": "delegatedPower", "type": "mapping(address => uint256)", "visibility": "public", "line": 102},
+        {"name": "emergencyMultisig", "type": "address", "visibility": "public", "line": 106}
+      ]
+    },
+    "Bribe": {
+      "constants": [
+        {"name": "DURATION", "type": "uint256", "value": "7 days", "visibility": "public", "line": 20},
+        {"name": "MAX_REWARD_TOKENS", "type": "uint256", "value": "10", "visibility": "public", "line": 23}
+      ],
+      "immutables": [
+        {"name": "voter", "type": "address", "visibility": "public", "line": 30}
+      ],
+      "state": [
+        {"name": "rewardTokens", "type": "address[]", "visibility": "public", "line": 37},
+        {"name": "isRewardToken", "type": "mapping(address => bool)", "visibility": "public", "line": 40},
+        {"name": "balanceOf", "type": "mapping(address => uint256)", "visibility": "public", "line": 43, "note": "Virtual balance (vote weight)"},
+        {"name": "totalSupply", "type": "uint256", "visibility": "public", "line": 46, "note": "Total virtual supply"},
+        {"name": "periodFinish", "type": "mapping(address => uint256)", "visibility": "public", "line": 50},
+        {"name": "rewardRate", "type": "mapping(address => uint256)", "visibility": "public", "line": 53},
+        {"name": "lastUpdateTime", "type": "mapping(address => uint256)", "visibility": "public", "line": 56},
+        {"name": "rewardPerTokenStored", "type": "mapping(address => uint256)", "visibility": "public", "line": 59},
+        {"name": "userRewardPerTokenPaid", "type": "mapping(address => mapping(address => uint256))", "visibility": "public", "line": 62},
+        {"name": "rewards", "type": "mapping(address => mapping(address => uint256))", "visibility": "public", "line": 65}
+      ]
+    },
+    "MultiTokenRouter": {
+      "state": [
+        {"name": "voter", "type": "address", "visibility": "public", "line": 20},
+        {"name": "whitelistedTokens", "type": "mapping(address => bool)", "visibility": "public", "line": 23},
+        {"name": "tokenList", "type": "address[]", "visibility": "public", "line": 26}
+      ]
+    },
+    "LBTBoostStrategy": {
+      "constants": [
+        {"name": "MAX_SLIPPAGE_BPS", "type": "uint256", "value": "500", "visibility": "public", "line": 22, "note": "5% max slippage"},
+        {"name": "BPS_DENOMINATOR", "type": "uint256", "value": "10000", "visibility": "public", "line": 25},
+        {"name": "DEADLINE_EXTENSION", "type": "uint256", "value": "30 minutes", "visibility": "public", "line": 28}
+      ],
+      "immutables": [
+        {"name": "voter", "type": "address", "visibility": "public", "line": 35},
+        {"name": "kodiakRouter", "type": "address", "visibility": "public", "line": 38},
+        {"name": "lbt", "type": "address", "visibility": "public", "line": 41},
+        {"name": "targetToken", "type": "address", "visibility": "public", "line": 44}
+      ],
+      "state": [
+        {"name": "swapPaths", "type": "mapping(address => bytes)", "visibility": "public", "line": 52},
+        {"name": "hasSwapPath", "type": "mapping(address => bool)", "visibility": "public", "line": 55},
+        {"name": "slippageBps", "type": "uint256", "visibility": "public", "line": 58, "default": "100 (1%)"}
+      ]
+    },
+    "DirectDistributionStrategy": {
+      "immutables": [
+        {"name": "voter", "type": "address", "visibility": "public", "line": 22},
+        {"name": "bribe", "type": "address", "visibility": "public", "line": 25}
+      ]
+    },
+    "GrowthTreasuryStrategy": {
+      "immutables": [
+        {"name": "voter", "type": "address", "visibility": "public", "line": 21}
+      ],
+      "state": [
+        {"name": "growthTreasury", "type": "address", "visibility": "public", "line": 28}
+      ]
+    }
+  }
+}

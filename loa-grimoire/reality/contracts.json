@@ -1,0 +1,109 @@
+{
+  "extraction_timestamp": "2025-12-22T17:10:00Z",
+  "repository": "apdao-lsg",
+  "total_contracts": 7,
+  "total_interfaces": 1,
+  "total_lines": 1690,
+  "solidity_version": "0.8.19",
+  "contracts": [
+    {
+      "name": "LSGVoter",
+      "path": "src/LSGVoter.sol",
+      "lines": 584,
+      "type": "core",
+      "description": "Core governance contract for Liquid Signal Governance - manages voting, delegation, and revenue distribution based on NFT ownership",
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/security/Pausable.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "./interfaces/IBribe.sol"
+      ],
+      "inheritance": ["ReentrancyGuard", "Ownable", "Pausable"]
+    },
+    {
+      "name": "Bribe",
+      "path": "src/Bribe.sol",
+      "lines": 285,
+      "type": "core",
+      "description": "Synthetix-style reward distribution for strategy voters - uses virtual balances (vote weights) instead of token deposits",
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol"
+      ],
+      "inheritance": ["ReentrancyGuard"]
+    },
+    {
+      "name": "MultiTokenRouter",
+      "path": "src/MultiTokenRouter.sol",
+      "lines": 171,
+      "type": "core",
+      "description": "Accumulates revenue from Vase subvalidator and forwards to LSGVoter - supports multiple token types with whitelisting",
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/security/Pausable.sol"
+      ],
+      "inheritance": ["Ownable", "Pausable"]
+    },
+    {
+      "name": "LBTBoostStrategy",
+      "path": "src/strategies/LBTBoostStrategy.sol",
+      "lines": 336,
+      "type": "strategy",
+      "description": "Strategy that swaps tokens via Kodiak DEX and deposits to LBT as backing - most complex strategy with external DEX integration",
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/IStrategy.sol",
+        "../interfaces/IKodiakRouter.sol"
+      ],
+      "inheritance": ["IStrategy", "ReentrancyGuard", "Ownable"]
+    },
+    {
+      "name": "DirectDistributionStrategy",
+      "path": "src/strategies/DirectDistributionStrategy.sol",
+      "lines": 138,
+      "type": "strategy",
+      "description": "Strategy that forwards all received tokens to the associated Bribe contract for direct voter rewards",
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/IStrategy.sol",
+        "../interfaces/IBribe.sol"
+      ],
+      "inheritance": ["IStrategy", "ReentrancyGuard", "Ownable"]
+    },
+    {
+      "name": "GrowthTreasuryStrategy",
+      "path": "src/strategies/GrowthTreasuryStrategy.sol",
+      "lines": 144,
+      "type": "strategy",
+      "description": "Strategy that forwards all received tokens to the Growth Treasury multisig for protocol growth initiatives",
+      "imports": [
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol",
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "../interfaces/IStrategy.sol"
+      ],
+      "inheritance": ["IStrategy", "ReentrancyGuard", "Ownable"]
+    }
+  ],
+  "interfaces": [
+    {
+      "name": "IBribe",
+      "path": "src/interfaces/IBribe.sol",
+      "lines": 32,
+      "description": "Interface for Bribe reward distribution contracts - used by LSGVoter to manage virtual balances"
+    }
+  ]
+}
